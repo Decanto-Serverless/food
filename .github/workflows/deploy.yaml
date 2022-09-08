@@ -4,6 +4,7 @@ on: [push]
 
 env:
   AZURE_FUNCTIONAPP_NAME: decanto-food
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: "."
 
 jobs:
   build-and-deploy:
@@ -18,7 +19,10 @@ jobs:
           go-version-file: "go.mod"
           check-latest: true
           cache: true
-      - run: go build -o handler main.go
+      - run: |
+          pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+          go build -o handler main.go
+          popd
 
       - name: "Run Azure Functions action"
         uses: Azure/functions-action@v1
