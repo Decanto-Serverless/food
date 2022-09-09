@@ -10,4 +10,4 @@ run: build
 	func start
 
 deploy: buildWin
-	func azure functionapp publish food
+	func azure functionapp publish decanto-food
